@@ -43,7 +43,7 @@ def result():
             img_array /= 255.0  
 
             prediction = model.predict(img_array)
-            disease_classes = ['Bacterial Blight','Brown Spot','Healthy', 'Blast','Scald','Narrow Brown Spot']
+            disease_classes = ['Bacterial Blight','Blast','Brown Spot', 'Tungro']
             predicted_class = disease_classes[np.argmax(prediction)]
 
             return render_template('result.html', filename=filename, prediction=predicted_class)
