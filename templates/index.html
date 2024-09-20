@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Leaf Disease Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        form {
+            margin-top: 50px;
+        }
+        label {
+            font-size: 1.5em;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rice Leaf Disease Detection</h1>
+    <form action="/result" method="POST" enctype="multipart/form-data">
+        <label for="file">Upload an image of the rice leaf:</label>
+        <input type="file" id="file" name="file" accept="image/*" required>
+        <button type="submit">Detect Disease</button>
+    </form>
+</body>
+</html>
