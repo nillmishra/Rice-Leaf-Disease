@@ -1,50 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rice Leaf Disease Detection</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            margin-top: 50px;
-        }
-        form {
-            margin-top: 50px;
-        }
-        label {
-            font-size: 1.5em;
-        }
-        input[type="file"] {
-            display: block;
-            margin: 20px auto;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1.5em;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rice-index</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;300;400;500;600;800&family=Poppins:wght@200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css"
+    rel="stylesheet">
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
+    type='text/css'>
+  <style>
+    body {
+      font-family: "Spartan", sans-serif;
+    }
+
+    nav {
+      width: 100%;
+      height: 40px;
+      background-color: white;
+      padding: 20px 0;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* Centering nav items */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .icons {
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.5s ease;
+      /* Slower color transition */
+    }
+
+    nav .icons:hover,
+    nav .icons.active {
+      color: #45a049;
+    }
+
+    nav .icons.active::after,
+    nav .icons:hover::after {
+      content: "";
+      width: 100%;
+      height: 2px;
+      background: #45a049;
+      border-radius: 30px;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      opacity: 0;
+      /* Start with the line invisible */
+      transition: opacity 0.5s ease;
+    }
+
+    nav .icons:hover::after,
+    nav .icons.active::after {
+      opacity: 1;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .logo img {
+      width: 170px;
+      height: 100%;
+      padding-top: 20px;
+      /* Maintain aspect ratio */
+    }
+
+    .sign-up {
+      margin-left: 30px;
+      margin-right: 30px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: medium;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+
+    .sign-up:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .col-1 {
+      margin-top: 120px;
+      min-width: 300px;
+    }
+
+    .col-2 img {
+      margin-top: 120px;
+      width: 500px;
+      padding: 50px 0;
+    }
+
+    .col-1 h1 {
+      font-size: 50px;
+      line-height: 60px;
+      margin: 25px 0;
+    }
+
+    .col-1 a {
+      text-decoration: none;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #4caf50;
+      color: #fff;
+      padding: 8px 30px;
+      margin: 30px 0;
+      border-radius: 30px;
+      transition: background 0.5s;
+    }
+
+    .btn:hover {
+      background: #00796b;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: medium;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 20px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .features {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 50px;
+      max-width: 1000px;
+      width: 100%;
+      margin: 60px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(114, 30, 30, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .features img {
+      width: 350px;
+      height: 350px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .main {
+      position: relative;
+    }
+
+    .main .head {
+      font-size: 40px;
+      line-height: 60px;
+      margin: 25px 0;
+      text-align: center;
+    }
+
+    .head::after {
+      content: "";
+      background: #45a049;
+      width: 80px;
+      height: 5px;
+      border-radius: 5px;
+      position: absolute;
+      left: 50%;
+      top: 55px;
+      transform: translateX(-50%);
+    }
+
+    .shop {
+      position: relative;
+    }
+
+    .head-2 {
+      font-size: 40px;
+      line-height: 60px;
+      margin: 25px 0;
+      padding-bottom: 50px;
+      padding-top: 50px;
+      text-align: center;
+    }
+
+    .head-2::after {
+      content: "";
+      background: #45a049;
+      width: 80px;
+      height: 5px;
+      border-radius: 5px;
+      position: absolute;
+      left: 50%;
+      top: 105px;
+      transform: translateX(-50%);
+    }
+
+    .pro {
+      width: 270px;
+      min-width: 150px;
+      padding: 10px 12px;
+      border: 1px solid #cce7d0;
+      background-color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+      margin: 15px 0;
+      position: relative;
+    }
+
+    .pro:hover {
+      box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+      transition: 0.2s ease;
+    }
+
+    .pro img {
+      width: 250px;
+      width: 250px;
+      border-radius: 20px;
+    }
+
+    .pro .des {
+      text-align: start;
+    }
+
+    .pro .des h4 {
+      margin: 0;
+      padding-top: 7px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #45a049;
+    }
+
+    .pro .des h5 {
+      margin: 0;
+      padding-top: 7px;
+      color: #1a1a1a;
+      font-size: 14px;
+    }
+
+    .pro .cart {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50px;
+      text-align: center;
+      background-color: #e8f6ea;
+      font-weight: 500;
+      color: #45a049;
+      border: 1px solid #cce7d0;
+      position: absolute;
+      bottom: 20px;
+      right: 10px;
+    }
+
+    .pro .des span {
+      color: #606063;
+      font-size: 12px;
+    }
+
+    .pro .des i {
+      font-size: 12px;
+      color: rgb(216, 162, 24);
+    }
+
+    .pro-container {
+      width: 1200px;
+      /* You may want to consider using max-width for better responsiveness */
+      max-width: 100%;
+      /* Ensure it doesn't overflow on smaller screens */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      /* Center the items horizontally */
+      align-items: center;
+      gap: 20px;
+      row-gap: 20px;
+      column-gap: 40px;
+      margin: 50px auto;
+      /* Center the container with auto margins */
+    }
+
+    .section-p1 {
+      padding: 40px 80px;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #f3f3f3;
+      justify-content: space-between;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+      /* Add shadow from the upper side */
+    }
+
+    footer .col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    footer .logo {
+      margin-left: -20px;
+    }
+
+    footer h4 {
+      font-size: 14px;
+    }
+
+    footer p {
+      font-size: 13px;
+      margin: 0 0 8px 0;
+    }
+
+    footer a {
+      font-size: 13px;
+      text-decoration: none;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    footer .follow {
+      margin-top: 20px;
+    }
+
+    footer .follow i {
+      color: #465b52;
+      padding-right: 4px;
+      cursor: pointer;
+    }
+
+    footer .install .row img {
+      border: 1px solid #088178;
+      border-radius: 6px;
+    }
+
+    footer .install img {
+      margin: 10px 0 15px 0;
+    }
+
+    footer .follow i:hover,
+    footer a:hover {
+      color: #088178;
+    }
+
+    footer .copyright {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Testimonial styles */
+    .testimonials {
+      background-color: white;
+      padding: 40px 0;
+      position: relative;
+      text-align: center;
+    }
+
+    .testimonials h1 {
+      font-size: 40px;
+      line-height: 60px;
+      margin: 25px 0;
+      padding-bottom: 60px;
+      text-align: center;
+    }
+
+    .testimonials h1::after {
+      content: "";
+      background: #45a049;
+      width: 80px;
+      height: 5px;
+      border-radius: 5px;
+      position: absolute;
+      left: 50%;
+      top: 120px;
+      transform: translateX(-50%);
+    }
+
+    .test-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding-bottom: 80px;
+    }
+
+    .testimonial {
+      width: 20%;
+      height: 280px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      text-align: left;
+      max-width: 800px;
+    }
+
+    .testimonial p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #606060;
+    }
+
+    .testimonial h4 {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #45a049;
+    }
+
+    .testimonial .rating {
+      margin-top: 5px;
+    }
+
+    .testimonial .rating i {
+      color: #f4c150;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Rice Leaf Disease Detection</h1>
-    <form action="/result" method="POST" enctype="multipart/form-data">
-        <label for="file">Upload an image of the rice leaf:</label>
-        <input type="file" id="file" name="file" accept="image/*" required>
-        <button type="submit">Detect Disease</button>
-    </form>
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">
+          <img src="static/images/newlogo.png" alt="Kishan Suraksha Logo">
+        </div>
+        <div class="icon">
+          <a class="icons" href="{{ url_for('index') }}">Home</a>
+          <a class="icons" href="{{ url_for('upload') }}">Upload Image</a>
+          <a class="icons" href="{{ url_for('about') }}">About</a>
+          <a class="icons" href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div class="log-in">
+          <a class="icons" href="{{ url_for('login') }}">Log In</a>
+          <a class="sign-up" href="{{ url_for('signup') }}">Sign Up</a>
+        </div>
+      </nav>
+      <div class="row">
+        <div class="col-1">
+          <h1>Protect Your Plants,<br> Naturally.!</h1>
+          <p>Kishan Shuraksha identifies plant diseases through images, <br> offering solutions and products
+            to promote healthier crops.</p>
+          <a href="{{ url_for('upload') }}" class="btn">Explore Now &#8594;</a>
+        </div>
+        <div class="col-2">
+          <img src="static/images/6615457-removebg.png" alt="">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="main">
+    <h1 class="head">Features</h1>
+    <div class="features">
+      <div class="image">
+        <img src="static/images/sreehari-devadas-WDI95CIPW00-unsplash.jpg" alt="" width="200px">
+      </div>
+      <div class="details">
+        <h1>Rice Leaf Disease Detection</h1>
+        <p>
+          Rice leaf disease detection is an essential aspect of modern agriculture. With the increasing threat
+          of
+          diseases affecting rice crops, it becomes crucial to identify and manage these diseases effectively.
+          Our
+          detection system uses advanced algorithms and image processing techniques to analyze images of rice
+          leaves and identify potential diseases.
+        </p>
+        <p>
+          By utilizing this system, farmers can ensure the health of their crops, optimize yield, and take
+          timely
+          actions to combat diseases. This tool not only aids in maintaining the quality of rice but also
+          contributes to sustainable farming practices.
+        </p>
+        <p>
+          Explore our features and learn how our system can help improve your farming efficiency and protect
+          your
+          rice crops.
+        </p>
+        <a href="{{ url_for('upload') }}" class="cta-button">Get Started</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="shop">
+    <h1 class="head-2">Products</h1>
+    <div class="pro-container">
+      <div class="pro">
+        <img src="static/images/1h.webp" alt="Cartoon Astronaut T-Shirt">
+        <div class="des">
+          <h5>Saaf Fungicide</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹99.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="pro">
+        <img src="static/images//2.jpg" alt="Stylish Hoodie">
+        <div class="des">
+          <h5>Coragen Insecticide</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+          </div>
+          <h4>₹155.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="pro">
+        <img src="static/images/3.webp" alt="Vintage T-Shirt">
+        <div class="des">
+          <h5>Lancergold Insecticide</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹349.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+
+      <div class="pro">
+        <img src="static/images/4.webp" alt="Cartoon Astronaut T-Shirt">
+        <div class="des">
+          <h5>Carina Insecticide</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹505.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="pro">
+        <img src="static/images/5.webp" alt="Graphic Tee">
+        <div class="des">
+          <h5>No Virus Bio Viricide</h5>
+          <div class="star">static/
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹285.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="pro">
+        <img src="static/images/new.webp" alt="Sporty Jacket">
+        <div class="des">
+          <h5>Keefun Insecticide</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹666.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="pro">
+        <img src="static/images/7.webp" alt="Casual Sneakers">
+        <div class="des">
+          <h5>Roundup Herbicide</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹299.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="pro">
+        <img src="static/images/8.jpg" alt="Cool Cap">
+        <div class="des">
+          <h5>Biovita Liquid BioFertilizer</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹222.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="pro">
+        <img src="static/images/9.webp" alt="Stylish Backpack">
+        <div class="des">
+          <h5>Nominee Gold Herbicide</h5>
+          <div class="star">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          <h4>₹90.00</h4>
+        </div>
+        <a href="#"><i class="fa fa-cart-plus cart" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+  <section class="testimonials">
+    <h1 class="head">Testimonials</h1>
+    <div class="test-container">
+      <div class="testimonial">
+        <p>"KisanSuraksha has revolutionized the way I manage my crops. With quick and accurate disease
+          detection,
+          I'm able to take immediate action and protect my yield. I highly recommend this platform to all
+          farmers."</p>
+        <h4>– Rajesh Kumar, Farmer</h4>
+        <div class="rating">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star-half-o"></i>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p>"Thanks to KisanSuraksha, I saved my crops from a major disease outbreak. The detection was fast and
+          the solutions provided were effective. It's a must-have tool for any farmer."</p>
+        <h4>– Anjali Devi, Rice Farmer</h4>
+        <div class="rating">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p>"KisanSuraksha saved my crops from a potential disaster. The AI detection was fast and accurate,
+          helping
+          me
+          treat the disease in time and save my harvest!"</p>
+        <h4>– Ravi Patel, Farmer</h4>
+        <div class="rating">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p>"The platform is incredibly easy to use. I was able to identify the disease and get treatment
+          recommendations
+          within minutes. It has been a game-changer for my farm."</p>
+        <h4>– Ananya Sharma, Agronomist</h4>
+        <div class="rating">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="section-p1">
+    <div class="col">
+      <img class="logo" src="static/images/newlogo.png" width="150px">
+      <h4>Contact</h4>
+      <p><strong>Address:</strong> H-893 Sutta Bajar, Asansol, WB, India</p>
+      <p><strong>Phone:</strong> +91 468 2893 529 / +91 709 1555 708</p>
+      <p><strong>Hours:</strong> 10:00 - 19:00, Mon - Sat</p>
+      <div class="follow">
+        <h4>Follow Us</h4>
+        <div class="icons">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-pinterest-p"></i>
+          <i class="fa fa-youtube-play"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>About</h4>
+      <a href="#">About Us</a>
+      <a href="#">Delivery Information</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="#">Sign In</a>
+      <a href="#">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="#">Track My Order</a>
+      <a href="#">Help</a>
+    </div>
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+      <div class="row">
+        <img src="static/images/app.jpg" alt="">
+        <img src="static/images/play.jpg" alt="">
+      </div>
+      <p>Secured Payment Gateways </p>
+      <img src="static/images/pay.png" alt="">
+    </div>
+    <div class="copyright">
+      <p>© Copyright 2024 - Nill Mishra</p>
+    </div>
+  </footer>
+
 </body>
+
 </html>

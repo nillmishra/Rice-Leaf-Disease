@@ -1,40 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detection Result</title>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #e0f7fa, #80deea);
         }
-        h1 {
-            margin-top: 50px;
+
+        header {
+            width: 100%;
+            background-color: #00796b;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
-        img {
-            margin-top: 50px;
-        }
-        a {
-            display: block;
-            margin-top: 50px;
-            font-size: 1.5em;
-            color: #007bff;
+
+        nav a {
+            color: white;
             text-decoration: none;
+            padding: 10px 15px;
+            font-size: 1rem;
         }
-        a:hover {
-            text-decoration: underline;
+
+        main {
+            margin-top: 80px;
+            /* Space for navbar */
+            text-align: center;
+        }
+
+        h2 {
+            color: #00796b;
+        }
+
+        img {
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: auto;
+            font-size: 0.9rem;
+            color: #fff;
+            background-color: #00796b;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
         }
     </style>
 </head>
+
 <body>
-    <h1>Prediction Result</h1>
-    <p>The predicted disease is: <strong>{{ prediction }}</strong></p>
-    <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" style="max-width: 300px;">
-    <br>
-    <a href="/">Go back</a>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('upload') }}">Upload Image</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Prediction Result</h2>
+        <p>The predicted disease is: <strong>{{ result }}</strong></p>
+        <img src="{{ file_path }}" alt="Uploaded Image">
+        <br>
+        <a href="{{ url_for('index') }}">
+            <button>Return to Home</button>
+        </a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Rice Leaf Disease Detection</p>
+    </footer>
 </body>
+
 </html>

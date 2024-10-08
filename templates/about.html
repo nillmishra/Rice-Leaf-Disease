@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #e0f7fa, #80deea);
+        }
+
+        header {
+            width: 100%;
+            background-color: #00796b;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
+
+        main {
+            margin-top: 80px; /* Space for navbar */
+            text-align: center;
+        }
+
+        h2 {
+            color: #00796b;
+        }
+
+        footer {
+            margin-top: auto;
+            font-size: 0.9rem;
+            color: #fff;
+            background-color: #00796b;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('upload') }}">Upload Image</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Welcome to the Rice Leaf Disease Detection Application</h2>
+        <p>This application utilizes advanced machine learning algorithms to detect common diseases in rice leaves. By leveraging computer vision, we aim to support farmers in maintaining healthy crops and ensuring food security.</p>
+        <p>Our model has been trained on a variety of rice leaf images to ensure accurate predictions, helping users to quickly identify and address potential issues in their crops.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Rice Leaf Disease Detection</p>
+    </footer>
+</body>
+</html>
