@@ -1,140 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Contact Us - KisanSuraksha</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            background: linear-gradient(to bottom right, #e0f7fa, #80deea);
-        }
-
-        header {
-            width: 100%;
-            background-color: #00796b;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            font-size: 1rem;
-        }
-
-        main {
-            margin-top: 80px; /* Space for navbar */
-            text-align: center;
-        }
-
-        h2 {
-            color: #00796b;
-        }
-
-        form {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
-            margin: 20px 0;
-        }
-
-        input[type="text"], input[type="email"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-
-        input[type="text"]:hover, input[type="email"]:hover, textarea:hover {
-            border-color: #45a049;
-        }
-
-        button {
-            padding: 15px 30px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        button:hover { background-color: #45a049; transform: translateY(-2px); }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-            color: red;
-            text-align: left;
-        }
-
-        footer {
-            margin-top: auto;
-            font-size: 0.9rem;
-            color: #fff;
-            background-color: #00796b;
-            padding: 10px 0;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;300;400;500;600;800&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('upload') }}">Upload Image</a>
-            <a href="{{ url_for('about') }}">About</a>
-            <a href="{{ url_for('contact') }}">Contact</a>
-        </nav>
-    </header>
 
-    <main>
-        <h2>Get in Touch</h2>
-        <form action="{{ url_for('contact') }}" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+<style>
+    body {
+      font-family: "Spartan", sans-serif;
+    }
+
+    nav {
+      width: 100%;
+      height: 40px;
+      background-color: white;
+      padding: 20px 0;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* Centering nav items */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .icons {
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.5s ease;
+      /* Slower color transition */
+    }
+
+    nav .icons:hover,
+    nav .icons.active {
+      color: #45a049;
+    }
+
+    nav .icons.active::after,
+    nav .icons:hover::after {
+      content: "";
+      width: 100%;
+      height: 2px;
+      background: #45a049;
+      border-radius: 30px;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      opacity: 0;
+      /* Start with the line invisible */
+      transition: opacity 0.5s ease;
+    }
+
+    nav .icons:hover::after,
+    nav .icons.active::after {
+      opacity: 1;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .logo img {
+      width: 170px;
+      height: 100%;
+      padding-top: 20px;
+      /* Maintain aspect ratio */
+    }
+
+    .sign-up {
+      margin-left: 30px;
+      margin-right: 30px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: medium;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+
+    .sign-up:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+
+
+    main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
+    text-align: center; /* Center text in the container */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px; /* Adjust max width for the form box */
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center; /* Center heading */
+}
+
+form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px 0;
+}
+
+input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:hover, input[type="email"]:hover, textarea:hover {
+    border-color: #45a049;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    font-family: "Spartan", sans-serif;
+      font-size: medium;
+      color: white;
+      border: none;
+      border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover { background-color: #45a049; transform: translateY(-2px); }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    color: red;
+    text-align: left;
+}
+
+
+
+    
+     .section-p1 {
+      padding: 40px 80px;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #f3f3f3;
+      justify-content: space-between;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+      /* Add shadow from the upper side */
+    }
+
+    footer .col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    footer .logo {
+      margin-left: -20px;
+    }
+
+    footer h4 {
+      font-size: 14px;
+    }
+
+    footer p {
+      font-size: 13px;
+      margin: 0 0 8px 0;
+    }
+
+    footer a {
+      font-size: 13px;
+      text-decoration: none;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    footer .follow {
+      margin-top: 20px;
+    }
+
+    footer .follow i {
+      color: #465b52;
+      padding-right: 4px;
+      cursor: pointer;
+    }
+
+    footer .install .row img {
+      border: 1px solid #088178;
+      border-radius: 6px;
+    }
+
+    footer .install img {
+      margin: 10px 0 15px 0;
+    }
+
+    footer .follow i:hover,
+    footer a:hover {
+      color: #088178;
+    }
+
+    footer .copyright {
+      width: 100%;
+      text-align: center;
+    }
+
+</style>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="static/images/newlogo.png" alt="Kishan Suraksha Logo">
+        </div>
+        <div class="icon">
+            <a class="icons" href="{{ url_for('index') }}">Home</a>
+            <a class="icons" href="{{ url_for('upload') }}">Upload Image</a>
+            <a class="icons" href="{{ url_for('about') }}">About Us</a>
+            <a class="icons active" href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div class="log-in">
+            <a class="icons" href="{{ url_for('login') }}">Log In</a>
+            <a class="sign-up" href="{{ url_for('signup') }}">Sign Up</a>
+        </div>
+    </nav>
+
+        <main>
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <form action="{{ url_for('contact') }}" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Rice Leaf Disease Detection</p>
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="static/images/newlogo.png" width="150px">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> H-893 Sutta Bajar, Asansol, WB, India</p>
+            <p><strong>Phone:</strong> +91 468 2893 529 / +91 709 1555 708</p>
+            <p><strong>Hours:</strong> 10:00 - 19:00, Mon - Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icons">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fa fa-instagram"></i>
+                    <i class="fa fa-pinterest-p"></i>
+                    <i class="fa fa-youtube-play"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="static/images/app.jpg" alt="">
+                <img src="static/images/play.jpg" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="static/images/pay.png" alt="">
+        </div>
+        <div class="copyright">
+            <p>© Copyright 2024 - Nill Mishra</p>
+        </div>
     </footer>
+
 </body>
+
 </html>

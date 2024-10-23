@@ -1,79 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>About Us - KisanSuraksha</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            background: linear-gradient(to bottom right, #e0f7fa, #80deea);
-        }
-
-        header {
-            width: 100%;
-            background-color: #00796b;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            font-size: 1rem;
-        }
-
-        main {
-            margin-top: 80px; /* Space for navbar */
-            text-align: center;
-        }
-
-        h2 {
-            color: #00796b;
-        }
-
-        footer {
-            margin-top: auto;
-            font-size: 0.9rem;
-            color: #fff;
-            background-color: #00796b;
-            padding: 10px 0;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;300;400;500;600;800&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="style.css">
 </head>
+
+<style>
+        body {
+      font-family: "Spartan", sans-serif;
+    }
+
+    nav {
+      width: 100%;
+      height: 40px;
+      background-color: white;
+      padding: 20px 0;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* Centering nav items */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .icons {
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.5s ease;
+      /* Slower color transition */
+    }
+
+    nav .icons:hover,
+    nav .icons.active {
+      color: #45a049;
+    }
+
+    nav .icons.active::after,
+    nav .icons:hover::after {
+      content: "";
+      width: 100%;
+      height: 2px;
+      background: #45a049;
+      border-radius: 30px;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      opacity: 0;
+      /* Start with the line invisible */
+      transition: opacity 0.5s ease;
+    }
+
+    nav .icons:hover::after,
+    nav .icons.active::after {
+      opacity: 1;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .logo img {
+      width: 170px;
+      height: 100%;
+      padding-top: 20px;
+      /* Maintain aspect ratio */
+    }
+
+    .sign-up {
+      margin-left: 30px;
+      margin-right: 30px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: medium;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+
+    .sign-up:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+
+    .about-section {
+    background-color: #f9f9f9; /* Light background color */
+    padding: 60px 80px; /* Padding for top and bottom */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.about-section h1 {
+    font-size: 2.5rem; /* Larger heading size */
+    margin-top: 70px;
+    margin-bottom: 20px; /* Space below the heading */
+    color: #333; /* Dark text color */
+}
+
+.about-section h2 {
+    font-size: 1.8rem; /* Subheading size */
+    margin-top: 40px; /* Space above subheadings */
+    color: #45a049; /* Accent color for subheadings */
+}
+
+.about-section p {
+    font-size: 1rem; /* Regular text size */
+    line-height: 1.6; /* Line height for better readability */
+    margin-bottom: 20px; /* Space below paragraphs */
+}
+
+/* Features Section */
+.features {
+    background-color: #fff;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.feature-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    flex: 1;
+    margin: 15px;
+    max-width: 250px;
+    text-align: center;
+}
+
+.feature-item i {
+    font-size: 50px;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+.feature-item h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+ /* Testimonial styles */
+ .testimonials {
+      background-color: white;
+      padding: 40px 0;
+      position: relative;
+      text-align: center;
+    }
+
+    .testimonials h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+    .test-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding-bottom: 80px;
+    }
+
+    .testimonial {
+      width: 20%;
+      height: 280px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      text-align: left;
+      max-width: 800px;
+    }
+
+    .testimonial p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #606060;
+    }
+
+    .testimonial h4 {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #45a049;
+    }
+
+    .testimonial .rating {
+      margin-top: 5px;
+    }
+
+    .testimonial .rating i {
+      color: #f4c150;
+    }
+    .section-p1 {
+      padding: 40px 80px;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #f3f3f3;
+      justify-content: space-between;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+      /* Add shadow from the upper side */
+    }
+
+    footer .col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    footer .logo {
+      margin-left: -20px;
+    }
+
+    footer h4 {
+      font-size: 14px;
+    }
+
+    footer p {
+      font-size: 13px;
+      margin: 0 0 8px 0;
+    }
+
+    footer a {
+      font-size: 13px;
+      text-decoration: none;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    footer .follow {
+      margin-top: 20px;
+    }
+
+    footer .follow i {
+      color: #465b52;
+      padding-right: 4px;
+      cursor: pointer;
+    }
+
+    footer .install .row img {
+      border: 1px solid #088178;
+      border-radius: 6px;
+    }
+
+    footer .install img {
+      margin: 10px 0 15px 0;
+    }
+
+    footer .follow i:hover,
+    footer a:hover {
+      color: #088178;
+    }
+
+    footer .copyright {
+      width: 100%;
+      text-align: center;
+    }
+</style>
+
 <body>
-    <header>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('upload') }}">Upload Image</a>
-            <a href="{{ url_for('about') }}">About</a>
-            <a href="{{ url_for('contact') }}">Contact</a>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <div class="logo">
+          <img src="static/images/newlogo.png" alt="Kishan Suraksha Logo">
+        </div>
+        <div class="icon">
+          <a class="icons" href="{{ url_for('index') }}">Home</a>
+          <a class="icons" href="{{ url_for('upload') }}">Upload Image</a>
+          <a class="icons" href="{{ url_for('about') }}">About Us</a>
+          <a class="icons" href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div class="log-in">
+          <a class="icons" href="{{ url_for('login') }}">Log In</a>
+          <a class="sign-up" href="{{ url_for('signup') }}">Sign Up</a>
+        </div>
+      </nav>
 
-    <main>
-        <h2>Welcome to the Rice Leaf Disease Detection Application</h2>
-        <p>This application utilizes advanced machine learning algorithms to detect common diseases in rice leaves. By leveraging computer vision, we aim to support farmers in maintaining healthy crops and ensuring food security.</p>
-        <p>Our model has been trained on a variety of rice leaf images to ensure accurate predictions, helping users to quickly identify and address potential issues in their crops.</p>
-    </main>
+    <section class="about-section">
+        <div class="container">
+            <h1>About KisanSuraksha</h1>
+            <p>
+                KisanSuraksha is dedicated to helping farmers protect their crops through cutting-edge technology. We offer a sophisticated rice leaf disease detection system that helps farmers identify and treat crop diseases efficiently. With a focus on sustainability and innovation, KisanSuraksha is transforming modern agriculture.
+            </p>
+            <h2>Our Mission</h2>
+            <p>
+                Our mission is to empower farmers with the tools and knowledge they need to protect their crops and maximize their yield. Through AI-powered detection systems and expert advice, we aim to improve farming practices and promote a healthier environment.
+            </p>
+            <h2>Why Choose Us?</h2>
+            <ul>
+                <li>Advanced image-based disease detection</li>
+                <li>Easy-to-use platform for farmers</li>
+                <li>Comprehensive solutions for crop protection</li>
+                <li>Commitment to sustainability</li>
+            </ul>
+            <p>
+                Join us in making a difference in agriculture, and let KisanSuraksha guide you towards healthier, more productive crops.
+            </p>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2024 Rice Leaf Disease Detection</p>
-    </footer>
+    <!-- Feature Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Our Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fa fa-leaf" aria-hidden="true"></i>
+                    <h3>AI-Based Detection</h3>
+                    <p>Leverage advanced AI technology for quick and accurate disease detection.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa fa-mobile" aria-hidden="true"></i>
+                    <h3>Mobile-Friendly</h3>
+                    <p>Access our platform from any device, anywhere at any time.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <h3>Expert Support</h3>
+                    <p>Receive personalized guidance from agricultural experts.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa fa-cloud" aria-hidden="true"></i>
+                    <h3>Cloud-Based Storage</h3>
+                    <p>Securely store and access your crop health data in the cloud.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonials">
+        <h2>What Our Farmers Say</h1>
+        <div class="test-container">
+          <div class="testimonial">
+            <p>"KisanSuraksha has revolutionized the way I manage my crops. With quick and accurate disease
+              detection,
+              I'm able to take immediate action and protect my yield. I highly recommend this platform to all
+              farmers."</p>
+            <h4>– Rajesh Kumar, Farmer</h4>
+            <div class="rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+            </div>
+          </div>
+    
+          <div class="testimonial">
+            <p>"Thanks to KisanSuraksha, I saved my crops from a major disease outbreak. The detection was fast and
+              the solutions provided were effective. It's a must-have tool for any farmer."</p>
+            <h4>– Anjali Devi, Rice Farmer</h4>
+            <div class="rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+    
+          <div class="testimonial">
+            <p>"KisanSuraksha saved my crops from a potential disaster. The AI detection was fast and accurate,
+              helping
+              me
+              treat the disease in time and save my harvest!"</p>
+            <h4>– Ravi Patel, Farmer</h4>
+            <div class="rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+    
+          <div class="testimonial">
+            <p>"The platform is incredibly easy to use. I was able to identify the disease and get treatment
+              recommendations
+              within minutes. It has been a game-changer for my farm."</p>
+            <h4>– Ananya Sharma, Agronomist</h4>
+            <div class="rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+
+    <footer class="section-p1">
+        <div class="col">
+          <img class="logo" src="static/images/newlogo.png" width="150px">
+          <h4>Contact</h4>
+          <p><strong>Address:</strong> H-893 Sutta Bajar, Asansol, WB, India</p>
+          <p><strong>Phone:</strong> +91 468 2893 529 / +91 709 1555 708</p>
+          <p><strong>Hours:</strong> 10:00 - 19:00, Mon - Sat</p>
+          <div class="follow">
+            <h4>Follow Us</h4>
+            <div class="icons">
+              <i class="fa fa-facebook" aria-hidden="true"></i>
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+              <i class="fa fa-instagram"></i>
+              <i class="fa fa-pinterest-p"></i>
+              <i class="fa fa-youtube-play"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <h4>About</h4>
+          <a href="#">About Us</a>
+          <a href="#">Delivery Information</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+          <h4>My Account</h4>
+          <a href="#">Sign In</a>
+          <a href="#">View Cart</a>
+          <a href="#">My Wishlist</a>
+          <a href="#">Track My Order</a>
+          <a href="#">Help</a>
+        </div>
+        <div class="col install">
+          <h4>Install App</h4>
+          <p>From App Store or Google Play</p>
+          <div class="row">
+            <img src="static/images/app.jpg" alt="">
+            <img src="static/images/play.jpg" alt="">
+          </div>
+          <p>Secured Payment Gateways </p>
+          <img src="static/images/pay.png" alt="">
+        </div>
+        <div class="copyright">
+          <p>© Copyright 2024 - Nill Mishra</p>
+        </div>
+      </footer>
+
 </body>
+
 </html>
